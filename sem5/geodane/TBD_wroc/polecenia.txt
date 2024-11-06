@@ -1,0 +1,3 @@
+pg_dump -c -C -h localhost -p 5432 -U postgres -d TBD_wroc -f D:\GEOD_INFO\kolokwium\zbiory\TBD_wroc.sql
+
+psql -f D:\DYDAKTYKA\WYK£ADY\LAB2\kolokwium\kolokwium\zadania_postgis\zbiory\TBD_wroc.sql -h localhost -U postgres
