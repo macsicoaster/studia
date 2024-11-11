@@ -1,5 +1,6 @@
 # Importujemy potrzebne biblioteki
 import math
+from matplotlib import pyplot as plt
 import numpy as np
 import geopandas as gpd
 from geopandas.geodataframe import GeoDataFrame
@@ -30,7 +31,7 @@ nmt5_in_radius = gpd.sjoin(nmt5_gpd, dane5_gpd, predicate='within', how='inner')
 
 # Wynikowy GeoDataFrame `nmt5_in_radius` zawiera teraz punkty nmt5 znajdujące się w promieniu `radius` od każdego punktu w `dane5`.
 # Możesz wyczyścić `buffer` z `dane5_gpd` jeśli jest już zbędny
-dane5_gpd: GeoDataFrame = dane5_gpd.drop(columns=['buffer'])
+dane5_gpd = dane5_gpd.set_geometry('geometry').drop(columns=['buffer'])
 
 
 centers = []
@@ -42,17 +43,3 @@ for row in dane5_gpd.T:
 
 center_points = {k: [] for k in centers}
 
-for center, points in center_points:
-    
-
-    
-
-
-
-srodki = [
-
-
-
-
-
-]
