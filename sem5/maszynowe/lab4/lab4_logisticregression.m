@@ -2,9 +2,9 @@ clear all %#ok
 close all
 clc
 num_elements = 100;
-a = 0.1;
-b = 0.01;
-c = 0.1;
+a = 7;
+b = 5;
+c = 4;
 x = linspace(0, 1, num_elements);
 y = a * x + b * randn(1, num_elements);
 y = y + c;
