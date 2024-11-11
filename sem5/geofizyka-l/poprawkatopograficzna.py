@@ -42,17 +42,9 @@ for row in dane5_gpd.T:
 
 center_points = {k: [] for k in centers}
 
-for center, points in center_points:
-    
+for center, points in center_points.items():
+    # Add your logic here to process each center and its points
+    pass
 
-    
-
-
-
-srodki = [
-
-
-
-
-
-]
+# If 'srodki' is needed, initialize it properly or remove it if unnecessary
+srodki = []
