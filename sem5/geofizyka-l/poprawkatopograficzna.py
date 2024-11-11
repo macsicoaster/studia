@@ -1,50 +1,56 @@
-# Importujemy potrzebne biblioteki
+# Biblioteki
 import math
+from matplotlib import pyplot as plt
 import numpy as np
 import geopandas as gpd
 from geopandas.geodataframe import GeoDataFrame
 
-# Ścieżki do plików SHP
+# Wczytanie danych i zapisanie ich do zmiennych
 nmt5_path = 'nmt5.shp'
 dane5_path = 'dane5.shp'
 
-# Wczytanie plików SHP
-nmt5_gpd = gpd.read_file(nmt5_path)
-dane5_gpd = gpd.read_file(dane5_path)
+dane5_gpd: GeoDataFrame = gpd.read_file(dane5_path)
+nmt5_gpd: GeoDataFrame = gpd.read_file(nmt5_path)
 
-# Upewnij się, że oba zbiory danych mają ten sam układ współrzędnych (CRS)
 nmt5_gpd = nmt5_gpd.to_crs(dane5_gpd.crs)
+buffer = 1200
 
-# Ustawienie promienia dla bufora
-radius = 1200  # jednostki zgodne z CRS, np. w metrach
 
-# Utworzenie bufora wokół punktów w dane5
-dane5_gpd['buffer'] = dane5_gpd.geometry.buffer(radius)
-
-# Zmieniamy kolumnę 'buffer' na nową geometrię
+dane5_gpd['buffer'] = dane5_gpd.geometry.buffer(buffer)
 dane5_gpd = dane5_gpd.set_geometry('buffer')
 
-# Przestrzenne połączenie, aby znaleźć punkty nmt5 w obrębie bufora punktów dane5
-# Wykorzystujemy 'sjoin' z predykatem 'within'
-nmt5_in_radius = gpd.sjoin(nmt5_gpd, dane5_gpd, predicate='within', how='inner')
+nmt5_in_radius: GeoDataFrame = gpd.sjoin(nmt5_gpd, dane5_gpd, predicate='within', how='inner')
 
-# Wynikowy GeoDataFrame `nmt5_in_radius` zawiera teraz punkty nmt5 znajdujące się w promieniu `radius` od każdego punktu w `dane5`.
-# Możesz wyczyścić `buffer` z `dane5_gpd` jeśli jest już zbędny
-dane5_gpd: GeoDataFrame = dane5_gpd.drop(columns=['buffer'])
+x = nmt5_in_radius.iloc[0]['geometry']
+
+centers = {}
+
+for index, row in nmt5_in_radius.iterrows():
+    x = row['NG']
+    y = row['EG']
+    centers[(x, y)] = centers.get((x, y), []) + [row]
 
 
-centers = []
-for row in dane5_gpd.T:
-    data = dane5_gpd.iloc[row]
-    ng = data['NG']
-    eg = data['EG']
-    centers.append((ng,eg))
+def get_distance(x1, y1, x2, y2):
+    return math.sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2)
 
-center_points = {k: [] for k in centers}
+def calculate(center, points):
+    k = 0.04
+    p = 2.67
+    sum = 0
+    for point in points:
+        x = point['NCN']
+        y = point['NCE']
+        r = get_distance(center[0], center[1], x, y)
+        h = point['Hnorm']
+        sum += r + abs(h) - np.sqrt(r ** 2 + h ** 2) 
+    return 2/len(points) * math.pi * k * p * sum
 
-for center, points in center_points.items():
-    # Add your logic here to process each center and its points
-    pass
+for center, points in centers.items():
+    print(f'Center: {center}, result: {calculate(center, points)}')
 
-# If 'srodki' is needed, initialize it properly or remove it if unnecessary
-srodki = []
+
+
+
+
+
