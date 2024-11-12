@@ -46,14 +46,12 @@ def calculate(center, points):
     k = 0.04187
     p = 2.67
     sum = 0
-    H = 0
     for point in points:
         x = point['NCN']
         y = point['NCE']
         r = get_distance(center[0], center[1], x, y)
         h = abs(point['Hnorm'] - center[2])
         sum += r + abs(h) - np.sqrt(r ** 2 + h ** 2) 
-        H += h
     return k * p * sum / len(points)
 
 # Wyświetlenie wyników
