@@ -33,7 +33,7 @@ siec.trainParam.epochs = 500;
 siec.trainParam.goal = 1e-5;
 
 siec = train(siec, X, y);
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
 Xt = X + (randn(size(X)) * 0.05);
 
 ynn = sim(siec, Xt);

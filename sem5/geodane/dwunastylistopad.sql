@@ -46,6 +46,5 @@ on ST_Intersects(ST_Buffer(bud.geom,200,8), grd.geom)
 group by ids;
 
 --6. Oblicz liczbę otworów hydrogeologicznych w siatce grid_wroclaw
-
-
-
+select count(*) from grid_wroclaw grd inner join hydro
+on ST_Intersects(ST_Force2D(grd.geom),ST_Force2D(hydro.geom));
