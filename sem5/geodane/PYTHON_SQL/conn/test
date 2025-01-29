@@ -1,0 +1,6 @@
+import psycopg2
+
+conn = psycopg2.connect(host='localhost', port='5432', dbname='ADRESY', user='postgres', password='abc')
+cursor = conn.cursor()
+
+cursor.execute("create table BUDYNKI (id_bud varchar(20) primary key,n_kond integer,pow_uzyt decimal(10,2),n_lokal integer);")

@@ -1,4 +1,4 @@
-clear all
+clear all %#ok<CLALL>
 close all
 warning off
 clc

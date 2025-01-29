@@ -1,0 +1,15 @@
+<GMLFeatureClassList>
+  <GMLFeatureClass>
+    <Name>polygon_z_enklawa</Name>
+    <ElementPath>polygon_z_enklawa</ElementPath>
+    <!--POLYGON-->
+    <GeometryType>3</GeometryType>
+    <DatasetSpecificInfo>
+      <FeatureCount>1</FeatureCount>
+      <ExtentXMin>1.00000</ExtentXMin>
+      <ExtentXMax>4.00000</ExtentXMax>
+      <ExtentYMin>-2.00000</ExtentYMin>
+      <ExtentYMax>2.00000</ExtentYMax>
+    </DatasetSpecificInfo>
+  </GMLFeatureClass>
+</GMLFeatureClassList>

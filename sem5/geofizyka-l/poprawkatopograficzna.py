@@ -62,7 +62,7 @@ for center, points in centers.items():
 # eksport do pliku csv
 #nmt5_in_radius.to_csv('nmt5_in_radius.csv')
 
-# dopisanie roznicy wysokosci do kazdego punktu dane5 (point['Hnorm'] - center[2])
+# dopisanie roznicy wysokosci do kazdego punktu dane5 (point['Hnorm'] - center[2]) - wyswietlana jest tylko ostatnia obliczona wartosc
 dane5_gpd['Hnorm'] = 0
 for index, row in dane5_gpd.iterrows():
     x = row['NG']
